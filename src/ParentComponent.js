@@ -9,6 +9,7 @@ function ParentComponent() {
   const [count, setCount] = useState(0);
 
   const addIncredient = () => {
+    setCount(0);
     switch (coffe) {
       case 'Affogato':
         setIncredient('vanilla');
@@ -25,8 +26,8 @@ function ParentComponent() {
   useEffect(addIncredient, [coffe]);
 
   const make = useCallback((coffeeName) => {
-    makeCoffee(coffeeName);
     setCount((c) => c + 1);
+    makeCoffee(coffeeName);
   }, []);
   return (
     <div>

@@ -9,7 +9,7 @@ function MemorizedCount({ coffeeName, count }) {
 
   return (
     <p>
-      [{memorizedValue}] : {coffeeName} maked {count} times
+      [{memorizedValue}] : {coffeeName} maked {count + 1} times
     </p>
   );
 }
