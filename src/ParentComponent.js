@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './style.css';
 import Button from './Button';
+import MemorizedCount from './MemorizedCount';
 function ParentComponent() {
   console.log('parent component rendered');
   const [coffe, makeCoffee] = useState('');
   const [incredient, setIncredient] = useState('');
+  const [count, setCount] = useState(0);
 
   const addIncredient = () => {
     switch (coffe) {
@@ -24,6 +26,7 @@ function ParentComponent() {
 
   const make = useCallback((coffeeName) => {
     makeCoffee(coffeeName);
+    setCount((c) => c + 1);
   }, []);
   return (
     <div>
@@ -37,6 +40,7 @@ function ParentComponent() {
         <Button coffeeName={'Affogato'} make={make} />
       </div>
       <p>{!!coffe && `${coffe} made with ${incredient}`}</p>
+      {!!coffe && <MemorizedCount count={count} coffeeName={coffe} />}
     </div>
   );
 }
