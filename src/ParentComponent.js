@@ -9,7 +9,6 @@ function ParentComponent() {
   const [count, setCount] = useState(0);
 
   const addIncredient = () => {
-    setCount(0);
     switch (coffe) {
       case 'Affogato':
         setIncredient('vanilla');
@@ -25,9 +24,14 @@ function ParentComponent() {
 
   useEffect(addIncredient, [coffe]);
 
+  //useCallback memorize value in prevState so count and coffe value are not change in within make function  eg: count is always 0 and coffee is always empty value
+
   const make = useCallback((coffeeName) => {
-    setCount((c) => c + 1);
-    makeCoffee(coffeeName);
+    makeCoffee((prevCoffee) => {
+      if (prevCoffee !== coffeeName) setCount(0);
+      else setCount((c) => c + 1);
+      return coffeeName;
+    });
   }, []);
   return (
     <div>
